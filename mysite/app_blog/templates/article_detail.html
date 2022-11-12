@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang=&quot;en&quot;>
+<head>
+    <meta charset=&quot;UTF-8&quot;>
+    <title>{{ item.title }}</title>
+</head>
+<body>
+{% load static %}
+<div>
+    <ol class=&quot;breadcrumb&quot;>
+        <li><a href=&quot;/&quot;>Головна</a></li>
+        <li><a href=&quot;{% url ‘articles-list’ %}&quot;>Публікації</a></li>
+        <li><a href=&quot;{{ item.category.get_absolute_url }}&quot;>{{ item.category|upper
+            }}</a></li>
+        <li>{{ item.title|upper }}</li>
+    </ol>
+    <div>
+        <h3>
+            {{ item.title }}
+        </h3>
+        <h5>
+
+            {{ item.pub_date|date:&quot;d E Y&quot;|safe|linebreaks }}
+        </h5>
+    </div>
+    <div>
+        {{ item.description|escape|safe }}
+        {% if item.images.all %}
+        {% include ‘fotorama.html’ with images=images %}
+        {% endif %}
+    </div>
+    <div class=‘clearfix’></div>
+</div>
+</body>
+</html>
